@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Favourite Pics of You 💕</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #ffe4e6, #fecdd3);
+    }
+
+    h1 {
+      text-align: center;
+      color: #9f1239;
+      font-size: 2.5rem;
+      margin-top: 30px;
+    }
+
+    .floating-img {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 20px;
+      border: 3px solid white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .caption {
+      position: absolute;
+      width: 150px;
+      text-align: center;
+      top: 160px;
+      font-size: 0.9rem;
+      color: #6b021e;
+      font-weight: bold;
+    }
+
+    .particle {
+      position: absolute;
+      font-size: 1.2rem;
+      opacity: 0.7;
+      animation: float 10s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(0) scale(1); }
+      50%  { transform: translateY(-100px) scale(1.3); }
+      100% { transform: translateY(0) scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <h1>My Favourite Pics of You 💕</h1>
+  <div id="container"></div>
+  <div id="particles"></div>
+
+  <script>
+    const images = [
+      { src: "images/img1.JGP"},
+      { src: "images/img2.jpg"},
+      { src: "images/img3.jpg" },
+      { src: "images/img4.jpg"},
+      // Add more here
+    ];
+
+    const container = document.getElementById("container");
+
+    images.forEach((img) => {
+      const image = document.createElement("img");
+      image.src = img.src;
+      image.className = "floating-img";
+      image.style.top = Math.random() * 80 + "vh";
+      image.style.left = Math.random() * 80 + "vw";
+      image.style.transform = `rotate(${Math.random() * 30 - 15}deg)`;
+      container.appendChild(image);
+
+    
+      animateImage(image);
+    });
+
+    function animateImage(img) {
+      const animate = () => {
+        const x = Math.random() * (window.innerWidth - 150);
+        const y = Math.random() * (window.innerHeight - 150);
+        const rotate = Math.random() * 30 - 15;
+        img.animate(
+          [{ transform: `translate(${x}px, ${y}px) rotate(${rotate}deg)` }],
+          {
+            duration: 10000 + Math.random() * 5000,
+            iterations: Infinity,
+            direction: "alternate",
+            easing: "ease-in-out",
+          }
+        );
+      };
+      animate();
+    }
+
+    // Heart and star particles
+    const symbols = ["❤️", "💖", "✨", "🌟", "💫"];
+    const particles = document.getElementById("particles");
+    for (let i = 0; i < 30; i++) {
+      const el = document.createElement("div");
+      el.className = "particle";
+      el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.top = Math.random() * 100 + "vh";
+      el.style.animationDuration = (10 + Math.random() * 10) + "s";
+      particles.appendChild(el);
+    }
+  </script>
+</body>
+</html>
